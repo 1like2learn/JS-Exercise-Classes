@@ -148,6 +148,9 @@ class Instructor extends Lambdasian{
   grade(student, subject){
     return `${student.name} receives a perfect score on ${subject}`
   }
+  changeGrade(student){
+    return student.grade + Math.round(Math.random() * 10) - Math.round(Math.random() *10)
+  }
 }
 
 /*
@@ -171,6 +174,8 @@ class Student extends Lambdasian {
     this.previousBackground = obj.previousBackground;
     this.className = obj.className;
     this.favSubjects = obj.favSubjects;
+    this.grade = obj.grade
+    this.grade = Math.min(100, Math.max(this.grade,1));
   }
   listSubjects(){
     return `Loving ${this.favSubjects}`
@@ -180,6 +185,13 @@ class Student extends Lambdasian {
   }
   sprintChallenge(subject){
     return `${this.name} has begun sprint challenge on ${subject}`
+  }
+  graduateQuery(teacher){
+    if (this.grade >70 ){
+      return `Congrats, ${this.name} has graduated from Lambda`
+    }else {
+      teacher.changeGrade(this)
+    }
   }
 }
 
@@ -209,30 +221,36 @@ class ProjectManager extends Instructor{
     return `${this.name} debugs ${student.name}'s code on ${subject}`
   }
 }
-// const jimmay = new ProjectManager({
-//   name: 'Jimmay',
-//   age: 35,
-//   location: 'Canada',
-//   specialty: 'Node',
-//   favLanguage: 'Python',
-//   catchPhrase: 'Do or do not, there is no try',
-//   favInstructor: 'Terra',
-//   gradClassName: 'web23',
+const jimmay = new ProjectManager({
+  name: 'Jimmay',
+  age: 35,
+  location: 'Canada',
+  specialty: 'Node',
+  favLanguage: 'Python',
+  catchPhrase: 'Do or do not, there is no try',
+  favInstructor: 'Terra',
+  gradClassName: 'web23',
 
-// })
-// const sarah = new Student({
-//   name: 'Sarah',
-//   age: 28,
-//   location: 'Grenada',
-//   previousBackground: 'Painter',
-//   className: 'web32',
-//   favSubjects: 'Arrays',
-// })
+})
+const sarah = new Student({
+  name: 'Sarah',
+  age: 28,
+  location: 'Grenada',
+  previousBackground: 'Painter',
+  className: 'web32',
+  favSubjects: 'Arrays',
+  grade: 75,
+})
+jimmay.changeGrade(sarah)
+console.log(sarah.grade)
+
+
 // console.log(jimmay.name())
 /*
   STRETCH PROBLEM (no tests!)
     - Extend the functionality of the Student by adding a prop called grade and setting it equal to a number between 1-100.
-    - Now that our students have a grade build out a method on the Instructor (this will be used by _BOTH_ instructors and PM's) that will randomly add or subtract points to a student's grade. _Math.random_ will help.
+    - Now that our students have a grade build out a method on the Instructor (this will be used by _BOTH_ instructors and PM's) 
+    that will randomly add or subtract points to a student's grade. _Math.random_ will help.
     - Add a graduate method to a student.
       + This method, when called, will check the grade of the student and see if they're ready to graduate from Lambda School
       + If the student's grade is above a 70% let them graduate! Otherwise go back to grading their assignments to increase their score.
