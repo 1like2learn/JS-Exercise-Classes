@@ -55,12 +55,12 @@ class Person {
   poop(){
     this.stomach = []
   }
-  soString(){
+  toString(){
     return `${this.name}, ${this.age}`
   }
 }
 // const mary = new Person('Mary', 50)
-// console.log(mary.soString())
+// console.log(mary.toString())
 /*
   TASK 2
     - Write a Car class whose constructor initializes `model` and `milesPerGallon` from arguments.
@@ -146,7 +146,7 @@ class Instructor extends Lambdasian{
     return `Today we are learning about ${subject}`
   }
   grade(student, subject){
-    `${student.name} receives a perfect score on ${subject}`
+    return `${student.name} receives a perfect score on ${subject}`
   }
 }
 
@@ -175,7 +175,7 @@ class Student extends Lambdasian {
   listSubjects(){
     return `Loving ${this.favSubjects}`
   }
-  PRAssingment(subject){
+  PRAssignment(subject){
     return `${this.name} has submitted a PR for ${subject}`
   }
   sprintChallenge(subject){
@@ -196,10 +196,39 @@ class Student extends Lambdasian {
         + `standUp` a method that takes in a slack channel and returns `{name} announces to {channel}, @channel standy times!`
         + `debugsCode` a method that takes in a student object and a subject and returns `{name} debugs {student.name}'s code on {subject}`
 */
-class ProjectManager {
-
+class ProjectManager extends Instructor{
+  constructor(obj){
+    super(obj)
+    this.gradClassName = obj.gradClassName
+    this.favInstructor = obj.favInstructor
+  }
+  standUp(channel){
+    return `${this.name} announces to ${channel}, @channel standy times!`
+  }
+  debugsCode(student, subject){
+    `${this.name} debugs ${student.name}'s code on ${subject}`
+  }
 }
+// const jimmay = new ProjectManager({
+//   name: 'Jimmay',
+//   age: 35,
+//   location: 'Canada',
+//   specialty: 'Node',
+//   favLanguage: 'Python',
+//   catchPhrase: 'Do or do not, there is no try',
+//   favInstructor: 'Terra',
+//   gradClassName: 'web23',
 
+// })
+// const sarah = new Student({
+//   name: 'Sarah',
+//   age: 28,
+//   location: 'Grenada',
+//   previousBackground: 'Painter',
+//   className: 'web32',
+//   favSubjects: 'Arrays',
+// })
+// console.log(jimmay.name())
 /*
   STRETCH PROBLEM (no tests!)
     - Extend the functionality of the Student by adding a prop called grade and setting it equal to a number between 1-100.
